@@ -174,7 +174,7 @@ hr{
                 <a class="dropdown-item " href="/type/pc">Desktops</a>
                 <a class="dropdown-item " href="/type/laptop">Laptops</a>
                 <a class="dropdown-item " href="/type/console">Consoles</a>
-                <a class="dropdown-item " href="/type/electronic">Computer Accesories</a>
+                <a class="dropdown-item " href="/type/electronics">Computer Accesories</a>
               </div>
             </li>
           </ul>
