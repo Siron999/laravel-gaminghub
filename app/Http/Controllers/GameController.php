@@ -11,22 +11,22 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-      
+
     public function index(){
-        
+
 
 
         return view('welcome');
-    
+
             }
 
-    
+
 
 
     public function show($id){
-//checking json data representation 
+//checking json data representation
         $all=Game::whereJsonContains('genre', $id)->get();
-        
+
 
 
         return view('genre',['id'=>$all],['title'=>strtoupper($id)]);
@@ -34,9 +34,9 @@ class GameController extends Controller
 
     }
     public function show2($id){
-//checking json data representation 
+//checking json data representation
         $all=Product::whereJsonContains('type', $id)->get();
-        
+
 
 
         return view('type',['id'=>$all],['title'=>strtoupper($id)]);
@@ -46,18 +46,18 @@ class GameController extends Controller
 
     public function details($id){
                 $all=Game::where('id', $id)->get();
-                
-        
-        
+
+
+
                 return view('gamedetails',['id'=>$all]);
-        
-        
+
+
             }
 
-            
+
     public function details2($id){
         $all=Product::where('id', $id)->get();
-        
+
 
 
         return view('productdetails',['id'=>$all]);
@@ -89,7 +89,7 @@ class GameController extends Controller
         return back();
 
     }
-   
+
 
 //adding item to the cart
 
@@ -97,29 +97,29 @@ class GameController extends Controller
         $game= Game::find($id);
         if($game==null){
         $game= Product::find($id);
-        }   
+        }
         $oldCart=Session::has('cart') ? Session::get('cart') :null;
         $cart= new Cart($oldCart);
         $cart->add($game,$game->id);
-        
-        
+
+
         $request->session()->put('cart',$cart);
         //dd($request->session()->get('cart'));
         return back();
 
 
-    }   
+    }
     // for the ceckout view
     public function cart(){
         if(!Session::has('cart')){
             return view('checkout');
 
         }
-       
+
         $oldCart=Session::has('cart') ? Session::get('cart') :null;
         $cart= new Cart($oldCart);
         return view('checkout',['games'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
-     
+
     }
 
     //deleting single quanity  from item in cart
@@ -127,8 +127,8 @@ class GameController extends Controller
         $oldCart=Session::get('cart');
         $cart= new Cart($oldCart);
         $cart->delete($id);
-        
-        
+
+
         Session()->put('cart',$cart);
         //dd($request->session()->get('cart'));
         return back();
@@ -140,8 +140,8 @@ class GameController extends Controller
         $oldCart=Session::get('cart');
         $cart= new Cart($oldCart);
         $cart->deleteall($id);
-        
-        
+
+
         Session()->put('cart',$cart);
         //dd($request->session()->get('cart'));
         return back();
